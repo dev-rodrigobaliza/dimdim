@@ -47,6 +47,7 @@ func handleApp(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fmt.Println("starting server...")
 	fmt.Println(hello())
 
 	// use 3rd party package as proof-of-concept
