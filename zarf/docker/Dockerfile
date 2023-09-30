@@ -3,7 +3,7 @@
 #
 FROM golang:latest as builder
 RUN mkdir /build
-ADD src/* /build/
+ADD * /build/
 WORKDIR /build
 
 ARG OWNER=dev-rodrigobaliza
@@ -17,7 +17,6 @@ ARG MY_BUILTBY=unknown
 RUN go mod init ${OWNER}/${PROJECT} \
    && go mod tidy \
    && CGO_ENABLED=0 GOOS=linux go build -ldflags "-X main.Version=${MY_VERSION} -X main.BuiltBy=${MY_BUILTBY}" main.go
-
 
 #
 # generate small final image for end users

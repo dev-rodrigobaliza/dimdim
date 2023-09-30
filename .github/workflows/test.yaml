@@ -12,9 +12,5 @@ jobs:
       - name: Run Unit Tests
         run: |
           go version
-          cd src
-          if [ ! -e *.mod ]; then
-            go mod init ${GITHUB_REPOSITORY}
-          fi
           go mod tidy
-          go test
+          go test ./...
