@@ -14,12 +14,17 @@ MY_GITREF := $(shell git rev-parse --short HEAD)
 BUILT_BY := Dockerfile
 BUILD_ARGS := --build-arg MY_VERSION=$(VERSION) --build-arg MY_BUILTBY=$(BUILT_BY)
 
+PHONY: vendor
+vendor:
+	go mod tidy
+	go mod vendor
+
 ## builds docker image
-docker-build:
+docker-build: vendor
 	echo MY_GITREF is $(MY_GITREF)
 	$(DOCKERCMD) build $(BUILD_ARGS) -f Dockerfile -t $(OPV) .
 
-docker-builder-then-stop:
+docker-builder-then-stop: vendor
 	echo MY_GITREF is $(MY_GITREF)
 	$(DOCKERCMD) build --target builder $(BUILD_ARGS) -f Dockerfile -t $(OPV) .
 
