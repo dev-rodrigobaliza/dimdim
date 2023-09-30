@@ -13,8 +13,7 @@ import (
 var Version = "dev"
 var BuiltBy = "local"
 
-// unique ID for each run
-var uuidWithHyphen = uuid.NewRandom()
+var uuidWithHyphen = uuid.New()
 
 func StartWebServer() {
 	http.HandleFunc("/", handleApp)
@@ -41,7 +40,6 @@ func handleApp(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, World\n")
 	}
 
-	fmt.Fprintf(w, "UUID: %s\n", uuidWithHyphen)
 	fmt.Fprintf(w, "Version: %s\n", Version)
 	fmt.Fprintf(w, "BuiltBy: %s\n", BuiltBy)
 }
