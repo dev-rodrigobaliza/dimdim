@@ -14,7 +14,7 @@ MY_GITREF := $(shell git rev-parse --short HEAD)
 BUILT_BY := Dockerfile
 BUILD_ARGS := --build-arg MY_VERSION=$(VERSION) --build-arg MY_BUILTBY=$(BUILT_BY)
 
-PHONY: vendor
+.PHONY: vendor
 vendor:
 	go mod tidy
 	go mod vendor
@@ -72,7 +72,7 @@ golang-build-local:
 	cd build && \
 	[ -f go.mod ] || go mod init $(OWNER)/$(PROJECT) && \
 	go mod tidy && \
-	go build -ldflags "-X main.Version=$(VERSION) -X main.BuiltBy=makefile" main.go
+	go build -ldflags "-X main.version=$(VERSION) main.go
 
 ## pushes to kubernetes cluster
 k8s-apply:
