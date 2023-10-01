@@ -5,5 +5,27 @@ services:
     image: 'dimdim-api'
     ports:
       - "8080:8080"
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
     environment:
       PORT: 8080
+
+  postgres:
+    image: 'postgres:latest'
+    ports:
+      - "5432:5432"
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dimdim
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data: {}
